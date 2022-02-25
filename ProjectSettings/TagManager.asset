@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Enemy
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Background
+    uniqueID: 596667571
+    locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Meddleground
+    uniqueID: 4232050895
+    locked: 0
+  - name: Foreground
+    uniqueID: 1580252443
+    locked: 0
+  - name: BaseHouses
+    uniqueID: 3226091951
+    locked: 0
+  - name: Ground
+    uniqueID: 1964018663
+    locked: 0
+  - name: Houses
+    uniqueID: 558380659
+    locked: 0
+  - name: Techos
+    uniqueID: 471154139
+    locked: 0
+  - name: Trees
+    uniqueID: 203032721
+    locked: 0
+  - name: Player
+    uniqueID: 338748397
+    locked: 0
