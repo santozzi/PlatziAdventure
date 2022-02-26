@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float speed = 4.0f;
+    private float currentSpeed;
     private bool walking = false;
     private Vector2 lastMovement = Vector2.zero;
     private const string horizontal = "Horizontal";
@@ -26,6 +27,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        currentSpeed = speed;
         animator = GetComponent<Animator>();
         playerRigidbody = GetComponent<Rigidbody2D>();
         if (!playerCreated)
@@ -67,7 +69,7 @@ public class PlayerController : MonoBehaviour
             if (Mathf.Abs(Input.GetAxisRaw(horizontal)) > 0.5f)
             {
                 this.transform.Translate(
-                     new Vector3(Input.GetAxisRaw(horizontal) * speed * Time.deltaTime, 0)
+                     new Vector3(Input.GetAxisRaw(horizontal) * currentSpeed * Time.deltaTime, 0)
                     );
                 /*
                  playerRigidbody.velocity = new Vector2(Input.GetAxisRaw(horizontal) * speed * Time.deltaTime, playerRigidbody.velocity.y);
@@ -79,7 +81,7 @@ public class PlayerController : MonoBehaviour
             {
 
                 this.transform.Translate(
-                     new Vector3(0, Input.GetAxisRaw(vertical) * speed * Time.deltaTime, 0)
+                     new Vector3(0, Input.GetAxisRaw(vertical) * currentSpeed * Time.deltaTime, 0)
                     );
                 /*
                playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, Input.GetAxisRaw(vertical) * speed * Time.deltaTime);
@@ -88,7 +90,16 @@ public class PlayerController : MonoBehaviour
                 lastMovement = new Vector2(0, Input.GetAxisRaw(vertical));
 
             }
+           
+        }
 
+        //Es para que cuando el player se mueve en diagonal no vaya mas rapido que en una sola direccion
+        if (Mathf.Abs(Input.GetAxisRaw(horizontal)) > 0.5f && Mathf.Abs(Input.GetAxisRaw(vertical)) > 0.5f)
+        {
+            currentSpeed = speed / Mathf.Sqrt(2);
+        }
+        else {
+            currentSpeed = speed;
         }
         if (!walking)
         {
