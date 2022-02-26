@@ -146,6 +146,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 4
   nextPlaceName: 
+  attackTime: 0.0025
 --- !u!50 &8341708191982348404
 Rigidbody2D:
   serializedVersion: 4

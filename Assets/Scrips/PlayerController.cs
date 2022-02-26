@@ -16,6 +16,11 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D playerRigidbody;
     public static bool playerCreated;
     public string nextPlaceName;
+    private const string attackingState = "Attack";
+    private bool attacking;
+    public float attackTime;
+    private float attackTimeCounter;
+
 
 
     // Start is called before the first frame update
@@ -39,27 +44,50 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         walking = false;
-        if (Mathf.Abs(Input.GetAxisRaw(horizontal)) > 0.5f) {
-            this.transform.Translate(
-                 new Vector3(Input.GetAxisRaw(horizontal)*speed*Time.deltaTime,0)
-                );
-           /*
-            playerRigidbody.velocity = new Vector2(Input.GetAxisRaw(horizontal) * speed * Time.deltaTime, playerRigidbody.velocity.y);
-             */
-            walking = true;
-            lastMovement = new Vector2(Input.GetAxisRaw(horizontal), 0);
+        if (Input.GetMouseButton(0)) {
+            attacking = true;
+            attackTimeCounter = attackTime;
+            playerRigidbody.velocity = Vector2.zero;
+            animator.SetBool(attackingState, true);
         }
-        if (Mathf.Abs(Input.GetAxisRaw(vertical)) >0.5f)
+        if (attacking)
         {
-           
-            this.transform.Translate(
-                 new Vector3(0, Input.GetAxisRaw(vertical) * speed * Time.deltaTime, 0)
-                );
-             /*
-            playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, Input.GetAxisRaw(vertical) * speed * Time.deltaTime);
-*/
-            walking = true;
-            lastMovement = new Vector2(0, Input.GetAxisRaw(vertical));
+
+            attackTimeCounter -= Time.deltaTime;
+            if (attackTimeCounter < 0)
+            {
+                attacking = false;
+                animator.SetBool(attackingState, false);
+            }
+
+        }
+        else
+        {
+
+            if (Mathf.Abs(Input.GetAxisRaw(horizontal)) > 0.5f)
+            {
+                this.transform.Translate(
+                     new Vector3(Input.GetAxisRaw(horizontal) * speed * Time.deltaTime, 0)
+                    );
+                /*
+                 playerRigidbody.velocity = new Vector2(Input.GetAxisRaw(horizontal) * speed * Time.deltaTime, playerRigidbody.velocity.y);
+                  */
+                walking = true;
+                lastMovement = new Vector2(Input.GetAxisRaw(horizontal), 0);
+            }
+            if (Mathf.Abs(Input.GetAxisRaw(vertical)) > 0.5f)
+            {
+
+                this.transform.Translate(
+                     new Vector3(0, Input.GetAxisRaw(vertical) * speed * Time.deltaTime, 0)
+                    );
+                /*
+               playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, Input.GetAxisRaw(vertical) * speed * Time.deltaTime);
+   */
+                walking = true;
+                lastMovement = new Vector2(0, Input.GetAxisRaw(vertical));
+
+            }
 
         }
         if (!walking)
